@@ -35,17 +35,24 @@ public class PopupSignUp : MonoBehaviour
             return;
         }
 
-        if (PlayerPrefs.HasKey("ID_" + inputID))
+        UserData existingData = GameManager.Instance.GetUserData(inputID);
+        if (existingData != null)
         {
             errorText.text = "이미 존재하는 ID입니다.";
             return;
         }
 
-        GameManager.Instance.userData.id = inputID;
-        GameManager.Instance.userData.userName = inputName;
-        GameManager.Instance.userData.password = inputPassword;
+        UserData newUserData = new UserData
+        {
+            id = inputID,
+            userName = inputName,
+            password = inputPassword,
+            cash = 0,
+            balance = 1000000
+        };
 
-        GameManager.Instance.SaveUserData();
+        GameManager.Instance.SaveUserData(newUserData.id, newUserData);
+        ResetInputFields();
 
         Debug.Log("회원가입 성공!");
         signUpUI.SetActive(false);
@@ -54,8 +61,18 @@ public class PopupSignUp : MonoBehaviour
 
     public void OnCancelButtonClicked()
     {
+        ResetInputFields();
+
         errorText.text = "";
         signUpUI.SetActive(false);
         loginUI.SetActive(true);
+    }
+
+    private void ResetInputFields()
+    {
+        if (idInputField != null) idInputField.text = "";
+        if (nameInputField != null) nameInputField.text = "";
+        if (passwordInputField != null) passwordInputField.text = "";
+        if (passwordConfirmInputField != null) passwordConfirmInputField.text = "";
     }
 }

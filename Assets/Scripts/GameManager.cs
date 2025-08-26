@@ -100,4 +100,4 @@ public class GameManager : MonoBehaviour
             mainUI.SetActive(false);
         }
     }
-}
+}   

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,6 +11,7 @@ public class UserData
     public string id = "tempID";
     public string password = "tempPassword";
     public string name = "플레이어";
+
     public UserData()
     {
 
