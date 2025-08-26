@@ -1,12 +1,17 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using System.IO;
+using TMPro;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameObject loginUIPrefab;
-    public GameObject mainUIPrefab;
-    
+
+    public GameObject loginUI;
+    public GameObject mainUI;
+
+    public TMP_InputField idInputField;
+    public TMP_InputField passwordInputField;
+
     private string userDataPath;
     public UserData userData;
 
@@ -22,8 +27,17 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        loginUIPrefab.SetActive(true);
+
+        if (loginUI != null)
+        {
+            loginUI.SetActive(true);
+        }
+        if (mainUI != null)
+        {
+            mainUI.SetActive(false);
+        }
     }
+
     public void SaveUserData()
     {
         string filePath = Path.Combine(Application.persistentDataPath, userData.id + "_userData.json");
@@ -46,6 +60,7 @@ public class GameManager : MonoBehaviour
             userData.id = targetID;
         }
     }
+
     public UserData GetUserData(string targetID)
     {
         string filePath = Path.Combine(Application.persistentDataPath, targetID + "_userData.json");
@@ -66,4 +81,23 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(filePath, jsonData);
     }
 
+    public void LogOut()
+    {
+        userData = null;
+
+        if (idInputField != null)
+        {
+            idInputField.text = "";
+        }
+        if (passwordInputField != null)
+        {
+            passwordInputField.text = "";
+        }
+
+        if (loginUI != null && mainUI != null)
+        {
+            loginUI.SetActive(true);
+            mainUI.SetActive(false);
+        }
+    }
 }
