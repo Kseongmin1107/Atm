@@ -14,6 +14,7 @@ public class BankSystem : MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(false);
         Refresh();
     }
 

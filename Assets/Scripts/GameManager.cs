@@ -4,6 +4,8 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public GameObject loginUIPrefab;
+    public GameObject mainUIPrefab;
 
     public UserData userData;
 
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        loginUIPrefab.SetActive(true);
         LoadUserData();
     }
     public void SaveUserData()
