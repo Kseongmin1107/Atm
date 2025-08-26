@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject loginUIPrefab;
     public GameObject mainUIPrefab;
-
+    
+    private string userDataPath;
     public UserData userData;
 
     private void Awake()
@@ -45,4 +46,24 @@ public class GameManager : MonoBehaviour
             userData.id = targetID;
         }
     }
+    public UserData GetUserData(string targetID)
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, targetID + "_userData.json");
+
+        if (File.Exists(filePath))
+        {
+            string jsonData = File.ReadAllText(filePath);
+            return JsonUtility.FromJson<UserData>(jsonData);
+        }
+
+        return null;
+    }
+
+    public void SaveUserData(string targetID, UserData data)
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, targetID + "_userData.json");
+        string jsonData = JsonUtility.ToJson(data);
+        File.WriteAllText(filePath, jsonData);
+    }
+
 }
