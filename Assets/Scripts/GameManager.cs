@@ -22,30 +22,27 @@ public class GameManager : MonoBehaviour
             return;
         }
         loginUIPrefab.SetActive(true);
-        LoadUserData();
     }
     public void SaveUserData()
     {
+        string filePath = Path.Combine(Application.persistentDataPath, userData.id + "_userData.json");
         string jsonData = JsonUtility.ToJson(userData);
-
-        string filePath = Path.Combine(Application.persistentDataPath, "userData.json");
-
         File.WriteAllText(filePath, jsonData);
     }
 
-    public void LoadUserData()
+    public void LoadUserData(string targetID)
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "userData.json");
+        string filePath = Path.Combine(Application.persistentDataPath, targetID + "_userData.json");
 
         if (File.Exists(filePath))
         {
             string jsonData = File.ReadAllText(filePath);
-
             userData = JsonUtility.FromJson<UserData>(jsonData);
         }
         else
         {
             userData = new UserData();
+            userData.id = targetID;
         }
     }
 }

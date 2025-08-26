@@ -18,7 +18,7 @@ public class PopupLogin : MonoBehaviour
         string inputID = idInputField.text;
         string inputPassword = passwordInputField.text;
 
-        GameManager.Instance.LoadUserData();
+        GameManager.Instance.LoadUserData(inputID);
 
         UserData savedData = GameManager.Instance.userData;
 
@@ -33,6 +33,12 @@ public class PopupLogin : MonoBehaviour
             Debug.Log("로그인 성공!");
             loginUI.SetActive(false);
             mainUI.SetActive(true);
+
+            BankSystem bankSystem = mainUI.GetComponent<BankSystem>();
+            if (bankSystem != null)
+            {
+                bankSystem.Refresh();
+            }
         }
         else
         {
