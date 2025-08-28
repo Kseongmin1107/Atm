@@ -10833,7 +10833,7 @@ GameObject:
   - component: {fileID: 1490320371}
   - component: {fileID: 1490320370}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ATMImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
